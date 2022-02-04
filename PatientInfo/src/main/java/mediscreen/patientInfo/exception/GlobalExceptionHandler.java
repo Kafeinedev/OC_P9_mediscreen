@@ -10,10 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
@@ -22,6 +21,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		body.put("timestamp", LocalDateTime.now());
 		body.put("message", "Could not find ressource");
 		body.put("status", HttpStatus.NOT_FOUND);
+		body.put("path", request.getDescription(false));
 
 		return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
 	}
@@ -34,7 +34,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		body.put("timestamp", LocalDateTime.now());
 		body.put("message", "Ressource already exist");
 		body.put("status", HttpStatus.SEE_OTHER);
+		body.put("path", request.getDescription(false));
 
 		return new ResponseEntity<>(body, HttpStatus.SEE_OTHER);
 	}
+
 }

@@ -34,14 +34,14 @@ public class PatientInfoController {
 	}
 
 	@PutMapping("/patient/update")
-	public PatientInfo updatePatientIndo(@Valid PatientInfo patientInfo) {
+	public PatientInfo updatePatientInfo(@Valid PatientInfo patientInfo) {
 		log.info("Put @ /patient/update : " + patientInfo.toString());
 		return patientInfoService.updatePatientInfo(patientInfo);
 	}
 
-	@GetMapping("/patient/{id}")
+	@GetMapping("/patient/search/{id}")
 	public PatientInfo getPatientInfoById(@PathVariable(name = "id") long id) {
-		log.info("Get @ /patient/" + id);
+		log.info("Get @ /patient/search/" + id);
 		return patientInfoService.getPatientInfoById(id);
 	}
 

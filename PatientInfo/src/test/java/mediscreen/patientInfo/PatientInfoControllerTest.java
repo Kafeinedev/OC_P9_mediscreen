@@ -89,7 +89,7 @@ class PatientInfoControllerTest {
 	void getPatientInfoById_whenCalledWithExistingId_return200AssociatedRessources() throws Exception {
 		when(mockService.getPatientInfoById(1L)).thenReturn(test);
 
-		mockMvc.perform(get("/patient/1")).andExpect(status().is2xxSuccessful())
+		mockMvc.perform(get("/patient/search/1")).andExpect(status().is2xxSuccessful())
 				.andExpect(content().string("{\"id\":1,\"family\":\"family\",\"given\":\"given\",\"dob\""
 						+ ":\"2000-01-01\",\"sex\":\"F\",\"address\":\"a dress\",\"phone\":\"phon\"}"));
 	}
