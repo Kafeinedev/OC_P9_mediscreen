@@ -23,7 +23,7 @@ import lombok.Setter;
 public class PatientInfo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotBlank(message = "must provide a family name")
