@@ -6,7 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -36,7 +35,7 @@ class DefaultPatientInfoServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		patientInfo = new PatientInfo(1L, "test", "test", new Date(0L), "apache helicopter", "a dress", "phon");
+		patientInfo = new PatientInfo(1L, "test", "test", "2000-01-01", "apache helicopter", "a dress", "phon");
 	}
 
 	@Test

@@ -1,18 +1,14 @@
 package mediscreen.patientInfo.model;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,22 +26,22 @@ public class PatientInfo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@NotBlank
+	@NotBlank(message = "must provide a family name")
 	@Column(length = 64, nullable = false)
 	@Size(max = 64)
 	private String family;
 
-	@NotBlank
+	@NotBlank(message = "must provide a given name")
 	@Column(length = 64, nullable = false)
 	@Size(max = 64)
 	private String given;
 
-	@Past(message = "date of birth must be less than today")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(nullable = false)
-	private Date dob;
+	@NotNull(message = "must provide a date of birth")
+	@Pattern(regexp = "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", message = "Date must follow yyyy-mm-dd format")
+	@Column(columnDefinition = "DATE", nullable = false)
+	private String dob; // String to provide easy validation with regex
 
-	@NotBlank
+	@NotBlank(message = "must provide a sex")
 	@Size(max = 1)
 	@Pattern(regexp = "[FM]")
 	@Column(columnDefinition = "CHAR", nullable = false)

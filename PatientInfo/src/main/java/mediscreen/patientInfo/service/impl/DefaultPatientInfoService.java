@@ -3,6 +3,8 @@ package mediscreen.patientInfo.service.impl;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import mediscreen.patientInfo.service.PatientInfoService;
 
 @Service
 @Slf4j
+@Transactional
 public class DefaultPatientInfoService implements PatientInfoService {
 
 	@Autowired
