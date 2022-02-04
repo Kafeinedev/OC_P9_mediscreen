@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import mediscreen.patientInfo.exception.PatientInfoAlreadyExistException;
 import mediscreen.patientInfo.model.PatientInfo;
 import mediscreen.patientInfo.repository.PatientInfoRepository;
 import mediscreen.patientInfo.service.PatientInfoService;
@@ -22,8 +23,12 @@ public class DefaultPatientInfoService implements PatientInfoService {
 	private PatientInfoRepository patientInfoRepository;
 
 	@Override
-	public PatientInfo addPatientInfo(PatientInfo toCreate) {
+	public PatientInfo addPatientInfo(PatientInfo toCreate) throws PatientInfoAlreadyExistException {
 		log.trace("Adding new patient info");
+		if (toCreate.getId() != null && patientInfoRepository.findById(toCreate.getId()).isPresent()) {
+			log.error("Trying to add already existing patientInfo id : " + toCreate.getId());
+			throw new PatientInfoAlreadyExistException();
+		}
 		return patientInfoRepository.save(toCreate);
 	}
 

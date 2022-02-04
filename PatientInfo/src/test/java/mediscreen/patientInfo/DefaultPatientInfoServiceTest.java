@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import mediscreen.patientInfo.exception.PatientInfoAlreadyExistException;
 import mediscreen.patientInfo.model.PatientInfo;
 import mediscreen.patientInfo.repository.PatientInfoRepository;
 import mediscreen.patientInfo.service.impl.DefaultPatientInfoService;
@@ -39,7 +41,7 @@ class DefaultPatientInfoServiceTest {
 	}
 
 	@Test
-	void addPatientInfo_whenCalled_returnCreatedPatientInfo() {
+	void addPatientInfo_whenCalled_returnCreatedPatientInfo() throws PatientInfoAlreadyExistException {
 		when(mockRepository.save(patientInfo)).thenReturn(patientInfo);
 
 		PatientInfo test = patientInfoService.addPatientInfo(patientInfo);
@@ -48,10 +50,18 @@ class DefaultPatientInfoServiceTest {
 	}
 
 	@Test
-	void addPatientInfo_whenCalled_useRepository() {
+	void addPatientInfo_whenPatientAlreadyExist_throw() {
+		when(mockRepository.findById(any(Long.class))).thenReturn(Optional.of(patientInfo));
+
+		assertThrows(PatientInfoAlreadyExistException.class, () -> patientInfoService.addPatientInfo(patientInfo));
+	}
+
+	@Test
+	void addPatientInfo_whenCalled_useRepository() throws PatientInfoAlreadyExistException {
 		patientInfoService.addPatientInfo(patientInfo);
 
 		verify(mockRepository, times(1)).save(patientInfo);
+		verify(mockRepository, times(1)).findById(any(Long.class));
 	}
 
 	@Test

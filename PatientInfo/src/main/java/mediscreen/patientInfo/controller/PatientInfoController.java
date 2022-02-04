@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
+import mediscreen.patientInfo.exception.PatientInfoAlreadyExistException;
 import mediscreen.patientInfo.model.PatientInfo;
 import mediscreen.patientInfo.service.PatientInfoService;
 
@@ -27,7 +28,7 @@ public class PatientInfoController {
 
 	@PostMapping("/patient/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PatientInfo addPatientInfo(@Valid PatientInfo patientInfo) {
+	public PatientInfo addPatientInfo(@Valid PatientInfo patientInfo) throws PatientInfoAlreadyExistException {
 		log.info("Post @ /patient/add : " + patientInfo.toString());
 		return patientInfoService.addPatientInfo(patientInfo);
 	}

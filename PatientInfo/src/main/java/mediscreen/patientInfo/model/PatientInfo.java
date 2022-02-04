@@ -24,7 +24,7 @@ public class PatientInfo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	@NotBlank(message = "must provide a family name")
 	@Column(length = 64, nullable = false)
