@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS demo;
+USE demo;
+
 DROP TABLE IF EXISTS patient_info;
 
 CREATE TABLE patient_info (
