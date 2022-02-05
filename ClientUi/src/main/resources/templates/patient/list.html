@@ -13,7 +13,7 @@
 			<a href="/patient/list">Patient List</a>
 		</div>
 	</div>
-	<div class="row"><h2>Patient info List</h2></div>
+	<div class="row"><h2>Patient patientInfo List</h2></div>
 	<div class="row">
 		<a href="/patient/add" class="btn btn-primary btn-sm">Add New</a>
 		<table class="table table-bordered">
@@ -29,16 +29,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="info : ${infoList}">
-					<td style="width: 10%" th:text="${info.id}"></td>
-					<td th:text="${info.family}"></td>
-					<td th:text="${info.given}"></td>
-					<td th:text="${info.dob}"></td>
-					<td th:text="${info.sex}"></td>
-					<td th:text="${info.address}"></td>
-					<td th:text="${info.phone}"></td>
+				<tr th:each="patientInfo : ${patientInfoList}">
+					<td style="width: 10%" th:text="${patientInfo.id}"></td>
+					<td th:text="${patientInfo.family}"></td>
+					<td th:text="${patientInfo.given}"></td>
+					<td th:text="${patientInfo.dob}"></td>
+					<td th:text="${patientInfo.sex}"></td>
+					<td th:text="${patientInfo.address}"></td>
+					<td th:text="${patientInfo.phone}"></td>
 					<td style="width: 7%" class="text-center">
-						<a th:href="@{/patient/update/{id}(id=${info.id})}">Edit</a>
+						<a th:href="@{/patient/update/{id}(id=${patientInfo.id})}">Edit</a>
 					</td>
 				</tr>
 			</tbody>

@@ -43,7 +43,7 @@ public class PatientInfo {
 
 	@NotBlank(message = "must provide a sex")
 	@Size(max = 1)
-	@Pattern(regexp = "[FM]")
+	@Pattern(regexp = "[FM]", message = "Must be either 'F' or 'M'")
 	@Column(columnDefinition = "CHAR", nullable = false)
 	private String sex;
 
