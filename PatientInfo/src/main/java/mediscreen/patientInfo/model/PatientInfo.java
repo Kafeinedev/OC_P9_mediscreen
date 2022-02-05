@@ -15,6 +15,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*
+ * Data model for patient information 
+ * 
+ */
 @Entity
 @Getter
 @Setter

@@ -1,21 +1,19 @@
-package mediscreen.clientUi.bean;
+package mediscreen.patientInfo.model;
 
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 /*
- * Data transfer object for api error
+ * Data transfer object for custom response in case of error.
  */
 @Getter
-@Setter
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 public class APIError {
 
 	private String timestamp;

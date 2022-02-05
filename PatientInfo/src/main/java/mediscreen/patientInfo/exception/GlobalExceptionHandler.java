@@ -15,50 +15,60 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import mediscreen.patientInfo.model.APIError;
+
+/**
+ * Allow handling of exception in a global way, allow customisation of default
+ * spring handling of some exceptions.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+	/**
+	 * Handle no such element exception.
+	 *
+	 * @param ex      the no such element exception ex
+	 * @param request the request that lead to the exception
+	 * @return the response entity to send back to the requestor
+	 */
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("timestamp", LocalDateTime.now());
-		body.put("message", "Could not find ressource");
-		body.put("status", HttpStatus.NOT_FOUND);
-		body.put("path", request.getDescription(false));
+		APIError error = new APIError(LocalDateTime.now().toString(), "Could not find ressource",
+				new HashMap<String, String>(), HttpStatus.NOT_FOUND, request.getDescription(false));
 
-		return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
+	/**
+	 * PatientInfoAlreadyExistException
+	 *
+	 * @param ex      the patient info already exist exception ex
+	 * @param request the request that lead to the exception
+	 * @return the response entity to send back to the requestor
+	 */
 	@ExceptionHandler(PatientInfoAlreadyExistException.class)
-	public ResponseEntity<Object> handleNoSuchElementException(PatientInfoAlreadyExistException ex,
+	public ResponseEntity<Object> handlePatientInfoAlreadyExistException(PatientInfoAlreadyExistException ex,
 			WebRequest request) {
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("timestamp", LocalDateTime.now());
-		body.put("message", "Ressource already exist");
-		body.put("status", HttpStatus.SEE_OTHER);
-		body.put("path", request.getDescription(false));
+		APIError error = new APIError(LocalDateTime.now().toString(), "Ressource already exist",
+				new HashMap<String, String>(), HttpStatus.SEE_OTHER, request.getDescription(false));
 
-		return new ResponseEntity<>(body, HttpStatus.SEE_OTHER);
+		return new ResponseEntity<>(error, HttpStatus.SEE_OTHER);
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status,
 			WebRequest request) {
 
-		Map<String, Object> body = new HashMap<>();
 		Map<String, String> bindingResult = new HashMap<>();
 		for (FieldError err : ex.getBindingResult().getFieldErrors()) {
 			bindingResult.put(err.getField(), err.getDefaultMessage());
 		}
 
-		body.put("timestamp", LocalDateTime.now());
-		body.put("message", "Invalid fields");
-		body.put("errors", bindingResult);
-		body.put("status", HttpStatus.BAD_REQUEST);
-		body.put("path", request.getDescription(false));
+		APIError error = new APIError(LocalDateTime.now().toString(), "Invalid fields", bindingResult,
+				HttpStatus.BAD_REQUEST, request.getDescription(false));
 
-		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 }

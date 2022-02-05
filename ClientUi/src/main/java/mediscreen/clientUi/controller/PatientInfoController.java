@@ -22,6 +22,9 @@ import mediscreen.clientUi.bean.PatientInfo;
 import mediscreen.clientUi.proxy.PatientInfoProxy;
 import mediscreen.clientUi.util.APIErrorUtil;
 
+/**
+ * Controller for CRUD operation.
+ */
 @Controller
 @Slf4j
 public class PatientInfoController {
@@ -31,6 +34,12 @@ public class PatientInfoController {
 	@Autowired
 	private PatientInfoProxy patientInfoService;
 
+	/**
+	 * Gets the all patients.
+	 *
+	 * @param model the model
+	 * @return a view with a list of all patients in model
+	 */
 	@GetMapping("/patient/list")
 	public ModelAndView getAllPatients(Model model) {
 		log.info("Get @ /patient/list");
@@ -38,6 +47,13 @@ public class PatientInfoController {
 		return new ModelAndView("patient/list", model.asMap());
 	}
 
+	/**
+	 * Gets a single patient.
+	 *
+	 * @param id    the id of the patient to get
+	 * @param model the model
+	 * @return a view with a single patients in model
+	 */
 	@GetMapping("/patient/search/{id}")
 	public ModelAndView getSinglePatient(@PathVariable long id, Model model) {
 		log.info("Get @ /patient/search/" + id);
@@ -45,6 +61,14 @@ public class PatientInfoController {
 		return new ModelAndView("patient/list", model.asMap());
 	}
 
+	/**
+	 * Search for patient via their name.
+	 *
+	 * @param family the family name
+	 * @param given  the given name
+	 * @param model  the model
+	 * @return a view with a list of all patients that possess both names.
+	 */
 	@GetMapping("/patient/search")
 	public ModelAndView getPatientInfo(@RequestParam String family, @RequestParam String given, Model model) {
 		log.info("Get @ /patient/search family = " + family + " given = " + given);
@@ -52,6 +76,13 @@ public class PatientInfoController {
 		return new ModelAndView("patient/list", model.asMap());
 	}
 
+	/**
+	 * Form for adding patient
+	 *
+	 * @param patientInfo the patient info
+	 * @param model       the model
+	 * @return a view with a form to add a patient
+	 */
 	@GetMapping("/patient/add")
 	public ModelAndView getAddPatient(PatientInfo patientInfo, Model model) {
 		log.info("Get @ /patient/add");
@@ -59,11 +90,22 @@ public class PatientInfoController {
 		return new ModelAndView("patient/add");
 	}
 
+	/**
+	 * Post add patient.
+	 *
+	 * @param patientInfo the patient info to add
+	 * @param model       the model
+	 * @param result      the result
+	 * @return a view with a list of all patient info
+	 * @throws JsonMappingException    the json mapping exception
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@PostMapping("/patient/add")
 	public String postAddPatient(PatientInfo patientInfo, Model model, BindingResult result)
 			throws JsonMappingException, JsonProcessingException {
 		log.debug(patientInfo.toString());
 		log.info("Post @ /patient/add patientInfo = " + patientInfo.toString());
+
 		try {
 			patientInfoService.addPatientInfo(patientInfo);
 		} catch (FeignException e) {
@@ -81,6 +123,13 @@ public class PatientInfoController {
 		return "redirect:/patient/list";
 	}
 
+	/**
+	 * Form for updating patient.
+	 *
+	 * @param id    the id of the patientinfo to update
+	 * @param model the model
+	 * @return a view with a form to update patientinfo in model
+	 */
 	@GetMapping("/patient/update/{id}")
 	public ModelAndView getUpdatePatient(@PathVariable(name = "id") long id, Model model) {
 		log.info("Get @ /patient/update/" + id);
@@ -89,12 +138,24 @@ public class PatientInfoController {
 		return new ModelAndView("patient/update");
 	}
 
+	/**
+	 * Put update patient.
+	 *
+	 * @param id          the id of the patient to update
+	 * @param patientInfo the patient info
+	 * @param model       the model
+	 * @param result      the result
+	 * @return a view with a list of all patient
+	 * @throws JsonMappingException    the json mapping exception
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@PostMapping("/patient/update/{id}")
 	public String putUpdatePatient(@PathVariable(name = "id") long id, PatientInfo patientInfo, Model model,
 			BindingResult result) throws JsonMappingException, JsonProcessingException {
 		log.debug(patientInfo.toString());
 		log.info("Post @ /patient/update/" + id + " patientInfo = " + patientInfo.toString());
 		patientInfo.setId(id);
+
 		try {
 			patientInfoService.updatePatientInfo(patientInfo);
 		} catch (FeignException e) {
@@ -103,6 +164,7 @@ public class PatientInfoController {
 				errors.forEach((k, v) -> {
 					result.addError(new FieldError("patientInfo", k, v));
 				});
+
 				return "patient/update";
 			} else {// Another method handle the rest.
 				throw e;
