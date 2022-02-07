@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "url.patientinfo",
-  "type": "java.lang.String",
-  "description": "Address to connect to patient_info microservice"
-}]}
+{"properties": [
+  {
+    "name": "url.patientinfo",
+    "type": "java.lang.String",
+    "description": "Address to connect to patient_info microservice"
+  },
+  {
+    "name": "url.note",
+    "type": "java.lang.String",
+    "description": "Address to connect to note microservice"
+  }
+]}

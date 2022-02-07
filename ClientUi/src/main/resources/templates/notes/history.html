@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-6">
+			<a href="/patient/list">Patient List</a>
+		</div>
+	</div>
+	<div class="row"><h2>Patient history</h2></div>
+	<div class="row">
+		<a th:href="/patHistory/add/{patId}(patId=${patId})" class="btn btn-primary btn-sm">Add New</a>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Patient Id</th>
+					<th>Patient</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${patId}"></td>
+					<td th:text="${patient}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Note</th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr th:each="note : ${notes}">
+					<td style="width: 10%" th:text="${note.id}"></td>
+					<td style="width: 83%" th:text="${note.note}"></td>
+					<td style="width: 7%" class="text-center">
+						<a th:href="@{/patHistory/update/{id}(id=${note.id})}">Edit</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

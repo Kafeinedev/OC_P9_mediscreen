@@ -47,7 +47,7 @@ public class NoteController {
 
 	@GetMapping("/patHistory")
 	public List<Note> getPatientHistory(@RequestParam Long patId) {
-		log.info("Get @ /patHistory/patient patId : " + patId);
+		log.info("Get @ /patHistory/patient/" + patId);
 		return noteService.getAllPatientNote(patId);
 	}
 }
