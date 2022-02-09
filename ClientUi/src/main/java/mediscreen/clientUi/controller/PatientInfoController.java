@@ -23,7 +23,7 @@ import mediscreen.clientUi.proxy.PatientInfoProxy;
 import mediscreen.clientUi.util.APIErrorUtil;
 
 /**
- * Controller for CRUD operation.
+ * Controller for CRUD operation on patientInfo.
  */
 @Controller
 @Slf4j

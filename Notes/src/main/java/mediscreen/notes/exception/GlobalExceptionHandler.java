@@ -17,6 +17,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import mediscreen.notes.model.APIError;
 
+/**
+ * Allow handling of exception in a global way, allow customisation of default
+ * spring handling of some exceptions.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -37,15 +41,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	/**
-	 * PatientInfoAlreadyExistException
+	 * Handle NoteAlreadyExistException
 	 *
-	 * @param ex      the patient info already exist exception ex
+	 * @param ex      the note already exist exception ex
 	 * @param request the request that lead to the exception
 	 * @return the response entity to send back to the requestor
 	 */
 	@ExceptionHandler(NoteAlreadyExistException.class)
-	public ResponseEntity<Object> handlePatientInfoAlreadyExistException(NoteAlreadyExistException ex,
-			WebRequest request) {
+	public ResponseEntity<Object> handleNoteAlreadyExistException(NoteAlreadyExistException ex, WebRequest request) {
 
 		APIError error = new APIError(LocalDateTime.now().toString(), "Ressource already exist",
 				new HashMap<String, String>(), HttpStatus.SEE_OTHER, request.getDescription(false));

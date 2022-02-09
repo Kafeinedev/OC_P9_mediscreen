@@ -22,6 +22,9 @@ import mediscreen.clientUi.proxy.NoteProxy;
 import mediscreen.clientUi.proxy.PatientInfoProxy;
 import mediscreen.clientUi.util.APIErrorUtil;
 
+/*
+ * Controller for CRUD operation on Note.
+ */
 @Slf4j
 @Controller
 public class NoteController {
@@ -34,6 +37,13 @@ public class NoteController {
 	@Autowired
 	private PatientInfoProxy patientInfoService;
 
+	/**
+	 * Gets the patient history.
+	 *
+	 * @param patId the id of the patient to show history
+	 * @param model the model
+	 * @return a view of the patient note history
+	 */
 	@GetMapping("/patHistory/patient")
 	public String getPatientHistory(@RequestParam long patId, Model model) {
 		log.info("Get @ /patHistory/patient?patId=" + patId);
@@ -43,6 +53,14 @@ public class NoteController {
 		return "/notes/history";
 	}
 
+	/**
+	 * Form for adding a note to a patient
+	 *
+	 * @param patId the pat id to add a note
+	 * @param note  the note
+	 * @param model the model
+	 * @return a view of the form to add a note
+	 */
 	@GetMapping("/patHistory/add/{patId}")
 	public String getNoteAdd(@PathVariable long patId, Note note, Model model) {
 		log.info("Get @ /patHistory/add");
@@ -53,6 +71,16 @@ public class NoteController {
 		return "notes/add";
 	}
 
+	/**
+	 * Post note add.
+	 *
+	 * @param note   the note to add
+	 * @param model  the model
+	 * @param result the result
+	 * @return a view of the patient note history //redirection
+	 * @throws JsonMappingException    the json mapping exception
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@PostMapping("/patHistory/add/{patId}")
 	public String postNoteAdd(Note note, Model model, BindingResult result)
 			throws JsonMappingException, JsonProcessingException {
@@ -77,6 +105,13 @@ public class NoteController {
 		return "redirect:/patHistory/patient?patId=" + note.getPatId();
 	}
 
+	/**
+	 * Form for updating a note update.
+	 *
+	 * @param id    the id of the note to update
+	 * @param model the model
+	 * @return a view of a form to update the note
+	 */
 	@GetMapping("/patHistory/update/{id}")
 	public String getNoteUpdate(@PathVariable(name = "id") String id, Model model) {
 		log.info("Get @ /patHistory/update/" + id);
@@ -85,6 +120,17 @@ public class NoteController {
 		return "notes/update";
 	}
 
+	/**
+	 * Post note update.
+	 *
+	 * @param id     the id of the note to update
+	 * @param note   the note to update
+	 * @param model  the model
+	 * @param result the result
+	 * @return a view of the patient note history //redirection
+	 * @throws JsonMappingException    the json mapping exception
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@PostMapping("/patHistory/update/{id}")
 	public String postNoteUpdate(@PathVariable(name = "id") String id, Note note, Model model, BindingResult result)
 			throws JsonMappingException, JsonProcessingException {

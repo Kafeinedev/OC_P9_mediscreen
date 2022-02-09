@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/*
+ * Data transfer object for note.
+ */
 @Getter
 @Setter
 @ToString
