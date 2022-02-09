@@ -3,12 +3,43 @@ services:
     mariadb:
         image: mariadb
         restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: password1
+        volumes:
+            - "./PatientInfo/src/main/resources/PatientInfo.sql:/docker-entrypoint-initdb.d/1.sql"
+
+    mongo:
+        image: mongo
+        restart: always
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: jessuisgroot
+            MONGO_INITDB_ROOT_DATABASE: demo
+
+    note:
+        depends_on:
+            - mongo
+        image: note
+        restart: always
+        ports:
+            - "8082:8082"
+        environment:
+            SPRING_DATA_MONGODB_HOST: mongo
+            SPRING_DATA_MONGODB_PORT: 27017
+            SPRING_DATA_MONGODB_USERNAME: root
+            SPRING_DATA_MONGODB_PASSWORD: jessuisgroot
 
     patientinfo:
         depends_on:
             - mariadb
         image: patientinfo
         restart: always
+        ports:
+            - "8081:8081"
         environment:
             SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/demo
             SPRING_DATASOURCE_USERNAME: root
@@ -17,9 +48,11 @@ services:
     clientui:
         depends_on:
             - patientinfo
-        image: mediscreenui
+            - note
+        image: clientui
         ports:
             - "8080:8080"
         restart: always
         environment:
             URL_PATIENTINFO: http://patientinfo:8081
+            URL_NOTE: http://note:8082

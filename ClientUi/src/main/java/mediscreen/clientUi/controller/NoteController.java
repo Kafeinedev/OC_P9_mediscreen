@@ -50,7 +50,7 @@ public class NoteController {
 		model.addAttribute("patient", patientInfoService.getPatientInfoById(patId).getFamily());
 		model.addAttribute("patId", patId);
 		model.addAttribute("notes", noteService.getPatientHistory(patId));
-		return "/notes/history";
+		return "notes/history";
 	}
 
 	/**

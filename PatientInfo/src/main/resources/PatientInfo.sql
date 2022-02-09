@@ -1,9 +1,7 @@
 CREATE DATABASE IF NOT EXISTS demo;
 USE demo;
 
-DROP TABLE IF EXISTS patient_info;
-
-CREATE TABLE patient_info (
+CREATE TABLE IF NOT EXISTS patient_info (
     id BIGINT NOT NULL AUTO_INCREMENT,
     address VARCHAR(255),
     dob DATE NOT NULL,
