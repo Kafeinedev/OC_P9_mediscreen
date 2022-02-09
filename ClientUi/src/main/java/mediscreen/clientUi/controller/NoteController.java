@@ -44,15 +44,17 @@ public class NoteController {
 	}
 
 	@GetMapping("/patHistory/add/{patId}")
-	public String getAddPatient(@PathVariable long patId, Note note, Model model) {
+	public String getNoteAdd(@PathVariable long patId, Note note, Model model) {
 		log.info("Get @ /patHistory/add");
-		model.addAttribute("patId", patId);
+		note.setPatId(patId);
+		note.setPatient(patientInfoService.getPatientInfoById(patId).getFamily());
 		model.addAttribute("note", note);
+		log.debug(model.toString());
 		return "notes/add";
 	}
 
-	@PostMapping("/patHistory/add")
-	public String postAddPatient(Note note, Model model, BindingResult result)
+	@PostMapping("/patHistory/add/{patId}")
+	public String postNoteAdd(Note note, Model model, BindingResult result)
 			throws JsonMappingException, JsonProcessingException {
 		log.info("Post @ /patHistory/add note = " + note.toString());
 
@@ -60,6 +62,8 @@ public class NoteController {
 			noteService.createNote(note);
 		} catch (FeignException e) {
 			if (e.status() == 400) {// We only resolve bad request
+									// Since there is no requirement on note field
+									// this should never get called
 				Map<String, String> errors = errorUtil.extractError(e.contentUTF8());
 				errors.forEach((k, v) -> {
 					result.addError(new FieldError("note", k, v));
@@ -74,7 +78,7 @@ public class NoteController {
 	}
 
 	@GetMapping("/patHistory/update/{id}")
-	public String getUpdatePatient(@PathVariable(name = "id") String id, Model model) {
+	public String getNoteUpdate(@PathVariable(name = "id") String id, Model model) {
 		log.info("Get @ /patHistory/update/" + id);
 		model.addAttribute("note", noteService.getNote(id));
 
@@ -82,7 +86,7 @@ public class NoteController {
 	}
 
 	@PostMapping("/patHistory/update/{id}")
-	public String putUpdatePatient(@PathVariable(name = "id") String id, Note note, Model model, BindingResult result)
+	public String postNoteUpdate(@PathVariable(name = "id") String id, Note note, Model model, BindingResult result)
 			throws JsonMappingException, JsonProcessingException {
 		log.info("Post @ /patHistory/update/" + id + " note = " + note.toString());
 		note.setId(id);
@@ -91,6 +95,8 @@ public class NoteController {
 			noteService.updateNote(note);
 		} catch (FeignException e) {
 			if (e.status() == 400) {// We only resolve bad request
+									// Since there is no requirement on note field
+									// this should never get called
 				Map<String, String> errors = errorUtil.extractError(e.contentUTF8());
 				errors.forEach((k, v) -> {
 					result.addError(new FieldError("note", k, v));

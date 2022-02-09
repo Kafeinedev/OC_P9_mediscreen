@@ -15,7 +15,7 @@
 	</div>
 	<div class="row"><h2>Patient history</h2></div>
 	<div class="row">
-		<a th:href="/patHistory/add/{patId}(patId=${patId})" class="btn btn-primary btn-sm">Add New</a>
+		<a th:href="@{/patHistory/add/{id}(id=${patId})}" class="btn btn-primary btn-sm">Add New</a>
 		<table class="table table-bordered">
 			<thead>
 				<tr>

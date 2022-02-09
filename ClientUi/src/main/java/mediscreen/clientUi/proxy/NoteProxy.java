@@ -14,10 +14,10 @@ import mediscreen.clientUi.bean.Note;
 @FeignClient(name = "note", url = "${url.note}")
 public interface NoteProxy {
 
-	@PostMapping("/patHistory/add")
+	@PostMapping(value = "/patHistory/add", consumes = "application/x-www-form-urlencoded")
 	public Note createNote(Note note);
 
-	@PutMapping("/patHistory/update")
+	@PutMapping(value = "/patHistory/update", consumes = "application/x-www-form-urlencoded")
 	public Note updateNote(Note note);
 
 	@GetMapping("/patHistory/search/{id}")
