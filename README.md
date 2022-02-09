@@ -21,24 +21,31 @@ Build PatientInfo microservice with :
 ```
  mvn -f PatientInfo clean package -DskipTests
 ```
-We skip the tests on this one because it require a database connection.
+Build Note microservice with :
+```
+ mvn -f Notes clean package -DskipTests
+```
+We skip the tests on those one because it require a database connection.
 
 Build the clientui application with :
 ```
  mvn -f ClientUi clean package
 ```
-
 Build the patientInfo docker image with :
-
 ```
 docker build -t patientinfo PatientInfo
 ```
-
-Build the sql database docker image with :
+Build the note docker image with :
 ```
-docker build -t mariadb PatientInfo/src/main/resources
+docker build -t note Notes
 ```
-
+Pull database docker image with :
+```
+docker pull mariadb
+```
+```
+docker pull mongo
+```
 Build the client ui docker image with :
 ```
 docker build -t mediscreenui ClientUi
