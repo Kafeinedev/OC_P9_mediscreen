@@ -19,6 +19,7 @@ public class PatientInfo {
 	private Long id;
 	private String family;
 	private String given;
+	// Follow YYYY-MM-DD format
 	private String dob;
 	private String sex;
 	private String address;

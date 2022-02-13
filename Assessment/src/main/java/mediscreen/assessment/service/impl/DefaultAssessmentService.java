@@ -1,19 +1,77 @@
 package mediscreen.assessment.service.impl;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import mediscreen.assessment.beans.Note;
+import mediscreen.assessment.beans.PatientInfo;
+import mediscreen.assessment.constant.AssessmentTerm;
 import mediscreen.assessment.service.AssessmentService;
 
 @Service
 public class DefaultAssessmentService implements AssessmentService {
 
 	@Override
-	public String assess(List<Note> notes) {
-		// TODO Auto-generated method stub
-		return null;
+	public String assess(List<Note> notes, PatientInfo info) {
+		String combinedNotes = "";
+		notes.forEach(n -> {
+			combinedNotes.concat(n.getNote());
+		});
+		int score = scoreEvaluation(combinedNotes);
+		long age = ageCalculation(info);
+
+		if (age <= 30) {
+			if (info.getSex().equals("F")) {// female patient
+				if (score >= 7) {
+					return "Early onset";
+				}
+				if (score >= 4) {// Since early onset is already taken into account we do not need to check for
+									// upper bound score < at early onset trigger value
+					return "In Danger";
+				}
+			} else {// male patient
+				if (score >= 5) {
+					return "Early onset";
+				}
+				if (score >= 3) {
+					return "In Danger";
+				}
+			}
+		} else { // over 30
+			if (score == 2) {
+				return "Borderline";
+			}
+			if (score >= 8) {
+				return "Early onset";
+			}
+			if (score >= 6) {
+				return "In Danger";
+			}
+		}
+
+		return "None"; // No match found everything is good.
+	}
+
+	private long ageCalculation(PatientInfo info) {
+		List<String> dobData = List.of(info.getDob().split("-")); // Why is java so complex ?
+		LocalDate current = LocalDate.now();
+		LocalDate dob = LocalDate.of(Integer.parseInt(dobData.get(0)), Integer.parseInt(dobData.get(1)),
+				Integer.parseInt(dobData.get(2)));
+		return ChronoUnit.YEARS.between(dob, current);
+	}
+
+	private int scoreEvaluation(String combinedNotes) {
+		int score = 0;
+		combinedNotes.toLowerCase();
+		for (String term : AssessmentTerm.getTerms()) {
+			if (combinedNotes.contains(term)) {
+				++score;
+			}
+		}
+		return score;
 	}
 
 }
