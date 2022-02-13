@@ -1,6 +1,5 @@
 package mediscreen.assessment.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,18 +38,12 @@ public class AssessmentController {
 	}
 
 	@PostMapping("/assess/familyName")
-	public List<String> assessByName(String familyName) {
+	public String assessByName(String familyName) {
 		log.info("post @ /assess/familyName familyName = " + familyName);
-		List<PatientInfo> infos = patientInfoService.getPatientInfoByName(familyName);
-		List<String> results = new ArrayList<>(infos.size());
+		PatientInfo info = patientInfoService.getPatientInfoByName(familyName);
+		List<Note> notes = noteService.getPatientHistory(info.getId());
 
-		for (PatientInfo info : infos) {
-			List<Note> notes = noteService.getPatientHistory(info.getId());
-			results.add(
-					"Patient " + info.getGiven() + ' ' + info.getFamily() + " (age " + AgeCalculator.calculateAge(info)
-							+ ") diabetes assessment is : " + assessmentService.assess(notes, info));
-		}
-
-		return results;
+		return "Patient " + info.getGiven() + ' ' + info.getFamily() + " (age " + AgeCalculator.calculateAge(info)
+				+ ") diabetes assessment is : " + assessmentService.assess(notes, info);
 	}
 }

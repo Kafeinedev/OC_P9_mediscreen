@@ -16,9 +16,9 @@ public class DefaultAssessmentService implements AssessmentService {
 	@Override
 	public String assess(List<Note> notes, PatientInfo info) {
 		String combinedNotes = "";
-		notes.forEach(n -> {
-			combinedNotes.concat(n.getNote());
-		});
+		for (Note n : notes) {
+			combinedNotes = combinedNotes.concat(n.getNote());
+		}
 		int score = scoreEvaluation(combinedNotes);
 		long age = AgeCalculator.calculateAge(info);
 
@@ -56,7 +56,7 @@ public class DefaultAssessmentService implements AssessmentService {
 
 	private int scoreEvaluation(String combinedNotes) {
 		int score = 0;
-		combinedNotes.toLowerCase();
+		combinedNotes = combinedNotes.toLowerCase();
 		for (String term : AssessmentTerm.getTerms()) {
 			if (combinedNotes.contains(term)) {
 				++score;
