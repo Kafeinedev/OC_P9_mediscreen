@@ -1,6 +1,6 @@
 package mediscreen.patientInfo.repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,11 +14,10 @@ import mediscreen.patientInfo.model.PatientInfo;
 public interface PatientInfoRepository extends JpaRepository<PatientInfo, Long> {
 
 	/**
-	 * Find by family name and given name.
+	 * Find by family name.
 	 *
 	 * @param family the family name of the patient to search
-	 * @param given  the given name of the patient to search
-	 * @return the list of patient possessing both the family and given name
+	 * @return a PatientInfo of a patient possessing that name
 	 */
-	public List<PatientInfo> findByFamilyAndGiven(String family, String given);
+	public Optional<PatientInfo> findByFamily(String family);
 }

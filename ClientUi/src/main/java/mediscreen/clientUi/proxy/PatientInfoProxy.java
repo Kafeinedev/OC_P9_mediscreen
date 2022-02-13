@@ -48,12 +48,10 @@ public interface PatientInfoProxy {
 	 * Gets the patient info by name.
 	 *
 	 * @param family the family name of the patient to find
-	 * @param given  the given name of the patient to find
-	 * @return a list of patient possessing both family and given name.
+	 * @return a patient possessing that name.
 	 */
 	@GetMapping("/patient/search")
-	public List<PatientInfo> getPatientInfoByName(@RequestParam(name = "family") String family,
-			@RequestParam(name = "given") String given);
+	public PatientInfo getPatientInfoByName(@RequestParam(name = "family") String family);
 
 	/**
 	 * Gets the all patient info.

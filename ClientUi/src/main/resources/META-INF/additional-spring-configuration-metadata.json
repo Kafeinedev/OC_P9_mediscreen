@@ -8,5 +8,10 @@
     "name": "url.note",
     "type": "java.lang.String",
     "description": "Address to connect to note microservice"
+  },
+  {
+    "name": "url.assessment",
+    "type": "java.lang.String",
+    "description": "Address to connect to assessment microservice'"
   }
 ]}

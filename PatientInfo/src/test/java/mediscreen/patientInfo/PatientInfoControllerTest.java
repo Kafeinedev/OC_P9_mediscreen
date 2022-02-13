@@ -103,11 +103,11 @@ class PatientInfoControllerTest {
 
 	@Test
 	void getPatientInfoByName_whenCalled_return200AssociatedRessources() throws Exception {
-		when(mockService.getPatientInfoByName("test", "test")).thenReturn(List.of(test));
+		when(mockService.getPatientInfoByName("test")).thenReturn(test);
 
 		mockMvc.perform(get("/patient/search?family=test&given=test")).andExpect(status().is2xxSuccessful())
-				.andExpect(content().string("[{\"id\":1,\"family\":\"family\",\"given\":\"given\",\"dob\""
-						+ ":\"2000-01-01\",\"sex\":\"F\",\"address\":\"a dress\",\"phone\":\"phon\"}]"));
+				.andExpect(content().string("{\"id\":1,\"family\":\"family\",\"given\":\"given\",\"dob\""
+						+ ":\"2000-01-01\",\"sex\":\"F\",\"address\":\"a dress\",\"phone\":\"phon\"}"));
 	}
 
 	@Test

@@ -90,28 +90,27 @@ class DefaultPatientInfoServiceTest {
 	}
 
 	@Test
-	void getPatientInfoByName_whenNoPatientInfosAreFound_returnEmptyList() {
-		when(mockRepository.findByFamilyAndGiven("test", "test")).thenReturn(new ArrayList<PatientInfo>());
+	void getPatientInfoByName_whenNoPatientInfosAreFound_throwNoSuchElementException() {
+		when(mockRepository.findByFamily("test")).thenReturn(Optional.empty());
 
-		List<PatientInfo> test = patientInfoService.getPatientInfoByName("test", "test");
-
-		assertThat(test).isEmpty();
+		assertThrows(NoSuchElementException.class, () -> patientInfoService.getPatientInfoByName("test"));
 	}
 
 	@Test
-	void getPatientInfoByName_whenPatientInfosAreFound_returnListOfPatientInfo() {
-		when(mockRepository.findByFamilyAndGiven("test", "test")).thenReturn(List.of(patientInfo));
+	void getPatientInfoByName_whenPatientInfosAreFound_returnProperPatient() {
+		when(mockRepository.findByFamily("test")).thenReturn(Optional.of(patientInfo));
 
-		List<PatientInfo> test = patientInfoService.getPatientInfoByName("test", "test");
+		PatientInfo test = patientInfoService.getPatientInfoByName("test");
 
-		assertThat(test.size()).isEqualTo(1);
+		assertThat(test).isEqualTo(patientInfo);
 	}
 
 	@Test
 	void getPatientInfoByName_whenCalled_useRepository() {
-		patientInfoService.getPatientInfoByName("test", "test");
+		when(mockRepository.findByFamily("test")).thenReturn(Optional.of(patientInfo));
+		patientInfoService.getPatientInfoByName("test");
 
-		verify(mockRepository, times(1)).findByFamilyAndGiven("test", "test");
+		verify(mockRepository, times(1)).findByFamily("test");
 	}
 
 	@Test

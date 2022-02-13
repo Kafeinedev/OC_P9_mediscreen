@@ -41,9 +41,9 @@ public interface PatientInfoService {
 	 *
 	 * @param family the family name of the patient to find
 	 * @param given  the given name of the patient to find
-	 * @return a list of patient possessing both those name
+	 * @return a PatientInfo with a patient possessing that name
 	 */
-	public List<PatientInfo> getPatientInfoByName(String family, String given);
+	public PatientInfo getPatientInfoByName(String family);
 
 	/**
 	 * Gets the all patient info.

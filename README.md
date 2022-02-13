@@ -19,17 +19,21 @@ Ensemble of services destined to help the diagnostic of diabetes.
 
 Build PatientInfo microservice with :
 ```
- mvn -f PatientInfo clean package -DskipTests
+mvn -f PatientInfo clean package -DskipTests
 ```
 Build Note microservice with :
 ```
- mvn -f Notes clean package -DskipTests
+mvn -f Notes clean package -DskipTests
 ```
-We skip the tests on those one because it require a database connection.
+We skip the tests on those one because they require a database connection.
 
+Build assessment microservice with :
+```
+mvn -f Assessment clean package
+```
 Build the clientui application with :
 ```
- mvn -f ClientUi clean package
+mvn -f ClientUi clean package
 ```
 Build the patientInfo docker image with :
 ```
@@ -39,6 +43,11 @@ Build the note docker image with :
 ```
 docker build -t note Notes
 ```
+Build the assessment docker image with :
+```
+docker build -t assessment Assessment
+```
+
 Pull database docker image with :
 ```
 docker pull mariadb

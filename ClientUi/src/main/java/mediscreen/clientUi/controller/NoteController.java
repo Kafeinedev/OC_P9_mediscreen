@@ -17,7 +17,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
+import mediscreen.clientUi.bean.StringId;
 import mediscreen.clientUi.bean.Note;
+import mediscreen.clientUi.proxy.AssessmentProxy;
 import mediscreen.clientUi.proxy.NoteProxy;
 import mediscreen.clientUi.proxy.PatientInfoProxy;
 import mediscreen.clientUi.util.APIErrorUtil;
@@ -37,6 +39,9 @@ public class NoteController {
 	@Autowired
 	private PatientInfoProxy patientInfoService;
 
+	@Autowired
+	private AssessmentProxy assessmentService;
+
 	/**
 	 * Gets the patient history.
 	 *
@@ -45,8 +50,17 @@ public class NoteController {
 	 * @return a view of the patient note history
 	 */
 	@GetMapping("/patHistory/patient")
-	public String getPatientHistory(@RequestParam long patId, Model model) {
+	public String getPatientHistory(@RequestParam Long patId, Model model) {
 		log.info("Get @ /patHistory/patient?patId=" + patId);
+		String assessment;
+		try {
+			assessment = assessmentService.assessById(new StringId(patId.toString()));
+		} catch (FeignException e) {
+			log.error("Could not assess patient with id : " + patId);
+			assessment = "ERROR";
+		}
+
+		model.addAttribute("assessment", assessment);
 		model.addAttribute("patient", patientInfoService.getPatientInfoById(patId).getFamily());
 		model.addAttribute("patId", patId);
 		model.addAttribute("notes", noteService.getPatientHistory(patId));

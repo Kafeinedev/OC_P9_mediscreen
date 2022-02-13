@@ -19,7 +19,7 @@ public class DefaultAssessmentService implements AssessmentService {
 		for (Note n : notes) {
 			combinedNotes = combinedNotes.concat(n.getNote());
 		}
-		int score = scoreEvaluation(combinedNotes);
+		int score = scoreEvaluation(combinedNotes); // number of symptom shown by a patient
 		long age = AgeCalculator.calculateAge(info);
 
 		if (age <= 30) {
@@ -40,14 +40,14 @@ public class DefaultAssessmentService implements AssessmentService {
 				}
 			}
 		} else { // over 30
-			if (score == 2) {
-				return "Borderline";
-			}
 			if (score >= 8) {
 				return "Early onset";
 			}
 			if (score >= 6) {
 				return "In Danger";
+			}
+			if (score >= 2) {
+				return "Borderline";
 			}
 		}
 

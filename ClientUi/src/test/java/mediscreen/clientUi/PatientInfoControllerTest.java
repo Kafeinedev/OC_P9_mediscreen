@@ -53,9 +53,9 @@ class PatientInfoControllerTest {
 
 	@Test
 	void getPatientInfo_whenCalled_return200() throws Exception {
-		when(mockService.getPatientInfoByName("thisis", "atest")).thenReturn(List.of(test));
+		when(mockService.getPatientInfoByName("thisis")).thenReturn(test);
 
-		mockMvc.perform(get("/patient/search?family=thisis&given=atest")).andExpect(status().is2xxSuccessful());
+		mockMvc.perform(get("/patient/search?family=thisis")).andExpect(status().is2xxSuccessful());
 
 	}
 

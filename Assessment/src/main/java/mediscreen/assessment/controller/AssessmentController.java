@@ -14,6 +14,9 @@ import mediscreen.assessment.proxy.PatientInfoProxy;
 import mediscreen.assessment.service.AssessmentService;
 import mediscreen.assessment.util.AgeCalculator;
 
+/*
+ * Controller to return the result of an assessment request by id or family name
+ */
 @Slf4j
 @RestController
 public class AssessmentController {
@@ -27,8 +30,14 @@ public class AssessmentController {
 	@Autowired
 	private AssessmentService assessmentService;
 
+	/**
+	 * Assess by id.
+	 *
+	 * @param id the id of the patient to assess
+	 * @return the result in a form of a string
+	 */
 	@PostMapping("/assess/id")
-	public String assessById(long id) {
+	public String assessById(Long id) {
 		log.info("post @ /assess/id id = " + id);
 		PatientInfo info = patientInfoService.getPatientInfoById(id);
 		List<Note> notes = noteService.getPatientHistory(id);
@@ -37,6 +46,12 @@ public class AssessmentController {
 				+ ") diabetes assessment is : " + assessmentService.assess(notes, info);
 	}
 
+	/**
+	 * Assess by name.
+	 *
+	 * @param familyName the family name of the patient to assess
+	 * @return the result in a form of a string
+	 */
 	@PostMapping("/assess/familyName")
 	public String assessByName(String familyName) {
 		log.info("post @ /assess/familyName familyName = " + familyName);

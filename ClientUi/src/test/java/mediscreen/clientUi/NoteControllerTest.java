@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import mediscreen.clientUi.bean.Note;
 import mediscreen.clientUi.bean.PatientInfo;
 import mediscreen.clientUi.controller.NoteController;
+import mediscreen.clientUi.proxy.AssessmentProxy;
 import mediscreen.clientUi.proxy.NoteProxy;
 import mediscreen.clientUi.proxy.PatientInfoProxy;
 
@@ -31,6 +32,9 @@ class NoteControllerTest {
 
 	@MockBean
 	private PatientInfoProxy mockPatientService;
+
+	@MockBean
+	private AssessmentProxy mockAssessmentService;
 
 	@Autowired
 	private MockMvc mockMvc;

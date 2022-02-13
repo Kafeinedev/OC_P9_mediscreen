@@ -1,5 +1,6 @@
 package mediscreen.clientUi.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,9 +71,9 @@ public class PatientInfoController {
 	 * @return a view with a list of all patients that possess both names.
 	 */
 	@GetMapping("/patient/search")
-	public ModelAndView getPatientInfo(@RequestParam String family, @RequestParam String given, Model model) {
-		log.info("Get @ /patient/search family = " + family + " given = " + given);
-		model.addAttribute("patientInfoList", patientInfoService.getPatientInfoByName(family, given));
+	public ModelAndView getPatientInfo(@RequestParam String family, Model model) {
+		log.info("Get @ /patient/search family = " + family);
+		model.addAttribute("patientInfoList", List.of(patientInfoService.getPatientInfoByName(family)));
 		return new ModelAndView("patient/list", model.asMap());
 	}
 

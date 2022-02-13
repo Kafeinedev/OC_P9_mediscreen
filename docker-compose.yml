@@ -45,14 +45,28 @@ services:
             SPRING_DATASOURCE_USERNAME: root
             SPRING_DATASOURCE_PASSWORD: password1
 
-    clientui:
+    assessment:
         depends_on:
             - patientinfo
             - note
-        image: clientui
+        image: assessment
+        restart: always
         ports:
             - "8080:8080"
+        environment:
+            URL_PATIENTINFO: http://patientinfo:8081
+            URL_NOTE: http://note:8082
+
+    mediscreenui:
+        depends_on:
+            - patientinfo
+            - note
+            - assessment
+        image: mediscreenui
+        ports:
+            - "8083:8083"
         restart: always
         environment:
+            URL_ASSESSMENT: http://assessment:8080
             URL_PATIENTINFO: http://patientinfo:8081
             URL_NOTE: http://note:8082

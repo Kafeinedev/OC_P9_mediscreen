@@ -53,9 +53,12 @@ public class DefaultPatientInfoService implements PatientInfoService {
 	}
 
 	@Override
-	public List<PatientInfo> getPatientInfoByName(String family, String given) {
-		log.trace("Getting patient info via name : " + family + ' ' + given);
-		return patientInfoRepository.findByFamilyAndGiven(family, given);
+	public PatientInfo getPatientInfoByName(String family) {
+		log.trace("Getting patient info via name : " + family);
+		return patientInfoRepository.findByFamily(family).orElseThrow(() -> {
+			log.error("Could not find the patientInfo with family name : " + family);
+			return new NoSuchElementException();
+		});
 	}
 
 	@Override
