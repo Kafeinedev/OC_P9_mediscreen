@@ -1,7 +1,5 @@
 package mediscreen.assessment.service.impl;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +8,7 @@ import mediscreen.assessment.beans.Note;
 import mediscreen.assessment.beans.PatientInfo;
 import mediscreen.assessment.constant.AssessmentTerm;
 import mediscreen.assessment.service.AssessmentService;
+import mediscreen.assessment.util.AgeCalculator;
 
 @Service
 public class DefaultAssessmentService implements AssessmentService {
@@ -21,7 +20,7 @@ public class DefaultAssessmentService implements AssessmentService {
 			combinedNotes.concat(n.getNote());
 		});
 		int score = scoreEvaluation(combinedNotes);
-		long age = ageCalculation(info);
+		long age = AgeCalculator.calculateAge(info);
 
 		if (age <= 30) {
 			if (info.getSex().equals("F")) {// female patient
@@ -53,14 +52,6 @@ public class DefaultAssessmentService implements AssessmentService {
 		}
 
 		return "None"; // No match found everything is good.
-	}
-
-	private long ageCalculation(PatientInfo info) {
-		List<String> dobData = List.of(info.getDob().split("-")); // Why is java so complex ?
-		LocalDate current = LocalDate.now();
-		LocalDate dob = LocalDate.of(Integer.parseInt(dobData.get(0)), Integer.parseInt(dobData.get(1)),
-				Integer.parseInt(dobData.get(2)));
-		return ChronoUnit.YEARS.between(dob, current);
 	}
 
 	private int scoreEvaluation(String combinedNotes) {
