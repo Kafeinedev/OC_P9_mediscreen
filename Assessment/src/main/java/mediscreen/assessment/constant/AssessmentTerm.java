@@ -9,7 +9,10 @@ import java.util.List;
 public class AssessmentTerm {
 
 	private static List<String> terms = List.of("hémoglobine a1c", "microalbumine", "taille", "poids", "fumeur",
-			"anormal", "cholestérol", "vertige", "rechute", "réaction", "anticorps");
+			"anormal", "cholestérol", "vertige", "rechute", "réaction", "anticorps", "hemoglobine a1c", "height",
+			"weight", "smoker", "abnormal", "cholesterol", "dizziness", "relapse", "reaction", "antibodies");
+	// English terms are either a direct translation or using term used in given
+	// test
 
 	/**
 	 * Terms for evaluations.
