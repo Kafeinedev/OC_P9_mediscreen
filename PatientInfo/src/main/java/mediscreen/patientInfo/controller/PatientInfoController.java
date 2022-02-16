@@ -76,9 +76,8 @@ public class PatientInfoController {
 	 * @return a patient possessing that name.
 	 */
 	@GetMapping("/patient/search")
-	public PatientInfo getPatientInfoByName(@RequestParam(name = "family") String family,
-			@RequestParam(name = "given") String given) {
-		log.info("Get @ /patient/search family = " + family + " given = " + given);
+	public PatientInfo getPatientInfoByName(@RequestParam(name = "family") String family) {
+		log.info("Get @ /patient/search family = " + family);
 		return patientInfoService.getPatientInfoByName(family);
 	}
 

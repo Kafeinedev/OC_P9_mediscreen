@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Search patientInfo</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-6">
+			<a href="/patient/list">Patient List</a> &nbsp | &nbsp
+			<a href="/patient/search">Patient Search</a>
+		</div>
+	</div>
+	<div class="row">
+		<h2>Search patient info</h2>
+	</div>
+	<div class="row">
+		<form action="#" th:action="@{/patient/search}" method="post" class="form-horizontal" style="width: 100%">
+			 <div class="form-group">
+				<div class="col-sm-10">
+					<input type="text" placeholder="Family name" th:name="family" class="col-4">
+				</div>
+				<br>
+				<input class="btn btn-primary btn-sm" type="submit" value="Search">
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

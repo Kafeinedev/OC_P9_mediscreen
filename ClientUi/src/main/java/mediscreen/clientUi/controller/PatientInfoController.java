@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -42,10 +41,10 @@ public class PatientInfoController {
 	 * @return a view with a list of all patients in model
 	 */
 	@GetMapping("/patient/list")
-	public ModelAndView getAllPatients(Model model) {
+	public String getAllPatients(Model model) {
 		log.info("Get @ /patient/list");
 		model.addAttribute("patientInfoList", patientInfoService.getAllPatientInfo());
-		return new ModelAndView("patient/list", model.asMap());
+		return "patient/list";
 	}
 
 	/**
@@ -56,10 +55,10 @@ public class PatientInfoController {
 	 * @return a view with a single patients in model
 	 */
 	@GetMapping("/patient/search/{id}")
-	public ModelAndView getSinglePatient(@PathVariable long id, Model model) {
+	public String getSinglePatient(@PathVariable long id, Model model) {
 		log.info("Get @ /patient/search/" + id);
 		model.addAttribute("patientInfoList", patientInfoService.getPatientInfoById(id));
-		return new ModelAndView("patient/list", model.asMap());
+		return "patient/list";
 	}
 
 	/**
@@ -70,11 +69,22 @@ public class PatientInfoController {
 	 * @param model  the model
 	 * @return a view with a list of all patients that possess both names.
 	 */
-	@GetMapping("/patient/search")
-	public ModelAndView getPatientInfo(@RequestParam String family, Model model) {
+	@PostMapping("/patient/search")
+	public String getPatientInfo(@RequestParam String family, Model model) {
 		log.info("Get @ /patient/search family = " + family);
 		model.addAttribute("patientInfoList", List.of(patientInfoService.getPatientInfoByName(family)));
-		return new ModelAndView("patient/list", model.asMap());
+		return "patient/list";
+	}
+
+	/**
+	 * Form for searching patient
+	 *
+	 * @return a view with a form to search for a patient via its name.
+	 */
+	@GetMapping("/patient/search")
+	public String getSearchForm() {
+		log.info("Get @ /patient/search");
+		return "patient/search";
 	}
 
 	/**
@@ -85,10 +95,10 @@ public class PatientInfoController {
 	 * @return a view with a form to add a patient
 	 */
 	@GetMapping("/patient/add")
-	public ModelAndView getAddPatient(PatientInfo patientInfo, Model model) {
+	public String getAddPatient(PatientInfo patientInfo, Model model) {
 		log.info("Get @ /patient/add");
 		model.addAttribute("patientInfo", patientInfo);
-		return new ModelAndView("patient/add");
+		return "patient/add";
 	}
 
 	/**
@@ -132,11 +142,11 @@ public class PatientInfoController {
 	 * @return a view with a form to update patientinfo in model
 	 */
 	@GetMapping("/patient/update/{id}")
-	public ModelAndView getUpdatePatient(@PathVariable(name = "id") long id, Model model) {
+	public String getUpdatePatient(@PathVariable(name = "id") long id, Model model) {
 		log.info("Get @ /patient/update/" + id);
 		model.addAttribute("patientInfo", patientInfoService.getPatientInfoById(id));
 
-		return new ModelAndView("patient/update");
+		return "patient/update";
 	}
 
 	/**
