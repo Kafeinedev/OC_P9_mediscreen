@@ -9,6 +9,7 @@ services:
             MYSQL_ROOT_PASSWORD: password1
         volumes:
             - "./PatientInfo/src/main/resources/PatientInfo.sql:/docker-entrypoint-initdb.d/1.sql"
+            - patient_info_data:/var/lib/mysql
 
     mongo:
         image: mongo
@@ -19,6 +20,8 @@ services:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: jessuisgroot
             MONGO_INITDB_ROOT_DATABASE: demo
+        volumes:
+            - note_data:/data/db
 
     note:
         depends_on:
@@ -70,3 +73,6 @@ services:
             URL_ASSESSMENT: http://assessment:8080
             URL_PATIENTINFO: http://patientinfo:8081
             URL_NOTE: http://note:8082
+volumes:
+    patient_info_data:
+    note_data:
