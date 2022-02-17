@@ -67,6 +67,6 @@ Inside projectroot run the command
 docker-compose up -d
 ```
 
-You can access the application ui using a browser at the address http://localhost:8080/patient/list
+You can access the application ui using a browser at the address http://localhost:8083/patient/list
 
 To add test data execute the curl commands contained in PatientInfo/src/main/resources/test_endpoint_call and Notes/src/main/resources/test_endpoint_call in a terminal.
