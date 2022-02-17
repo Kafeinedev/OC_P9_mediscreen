@@ -10,3 +10,43 @@ curl -d "patId=4&patient=TestEarlyOnset&note=Patient states that walking up stai
 curl -d "patId=4&patient=TestEarlyOnset&note=Patient states that they are experiencing back pain when seated for a long time" -X POST http://localhost:8082/patHistory/add
 curl -d "patId=4&patient=TestEarlyOnset&note=Patient states that they are a short term Smoker Hemoglobin A1C above recommended level" -X POST http://localhost:8082/patHistory/add
 curl -d "patId=4&patient=TestEarlyOnset&note=Patient states that Body Height, Body Weight, Cholesterol, Dizziness and Reaction" -X POST http://localhost:8082/patHistory/add
+
+
+curl -d "patId=5&patient=Ferguson&note=Le patient déclare qu'il « se sent très bien »" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=5&patient=Ferguson&note=Le patient déclare qu'il se sent fatigué pendant la journée" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=5&patient=Ferguson&note=Le patient déclare qu'il ne se sent pas si fatigué que ça" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=6&patient=Rees&note=Le patient déclare qu'il ressent beaucoup de stress au travail" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=6&patient=Rees&note=Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=6&patient=Rees&note=Tests de laboratoire indiquant une microalbumine élevée" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=6&patient=Rees&note=Le patient déclare que tout semble aller bien" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=7&patient=Arnold&note=Le patient déclare qu'il fume depuis peu" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=7&patient=Arnold&note=Tests de laboratoire indiquant une microalbumine élevée" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=7&patient=Arnold&note=Le patient déclare qu'il est fumeur et qu'il a cessé de fumer l'année dernière" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=7&patient=Arnold&note=Tests de laboratoire indiquant un taux de cholestérol LDL élevé" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=8&patient=Sharp&note=Le patient déclare qu'il lui est devenu difficile de monter les escaliers" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=8&patient=Sharp&note=Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=8&patient=Sharp&note=Le patient déclare avoir commencé à fumer depuis peu" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=9&patient=Ince&note=Le patient déclare avoir des douleurs au cou occasionnellement" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=9&patient=Ince&note=Le patient déclare avoir eu plusieurs épisodes de vertige depuis la dernière visite." -X POST http://localhost:8082/patHistory/add
+curl -d "patId=9&patient=Ince&note=Le patient déclare qu'il souffre encore de douleurs cervicales occasionnelles" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=9&patient=Ince&note=Le patient déclare avoir eu plusieurs épisodes de vertige depuis la dernière visite." -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=10&patient=Ross&note=Le patient déclare qu'il se sent bien" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=10&patient=Ross&note=Le patient déclare qu'il se sent bien" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=11&patient=Wilson&note=Le patient déclare qu'il se réveille souvent avec une raideur articulaire" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=12&patient=Buckland&note=Les tests de laboratoire indiquent que les anticorps sont élevés" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=13&patient=Clark&note=Le patient déclare avoir de la difficulté à se concentrer sur ses devoirs scolaires" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=13&patient=Clark&note=Le patient déclare qu'il s’impatiente facilement en cas d’attente prolongée" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=13&patient=Clark&note=Le patient signale qu'il est facilement irrité par des broutilles" -X POST http://localhost:8082/patHistory/add
+
+curl -d "patId=14&patient=Bailey&note=Le patient déclare qu'il n'a aucun problème" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=14&patient=Bailey&note=Le patient déclare qu'il n'a aucun problème" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=14&patient=Bailey&note=Le patient déclare qu'il n'a aucun problème" -X POST http://localhost:8082/patHistory/add
+curl -d "patId=14&patient=Bailey&note=Le patient déclare qu'il n'a aucun problème" -X POST http://localhost:8082/patHistory/add
